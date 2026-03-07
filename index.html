@@ -57,7 +57,7 @@ p{
 
 <h2>Farmer Login</h2>
 
-<form>
+<form onsubmit="loginUser(event)">
 
 <input type="text" placeholder="Phone Number" required>
 
@@ -65,11 +65,20 @@ p{
 
 <button type="submit">Login</button>
 
-<p>New user? <a href="register.html">Register</a></p>
+<p>New user? <a href="farmer_regis.html">Register</a></p>
 
 </form>
 
 </div>
+
+<script>
+
+function loginUser(event){
+event.preventDefault();   // stop form reload
+window.location.href = "market.html"; // go to market page
+}
+
+</script>
 
 </body>
 </html>

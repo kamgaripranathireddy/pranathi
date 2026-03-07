@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Previous Orders</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#d4fc79,#96e6a1);
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-top:40px;
+}
+
+h1{
+color:#1b5e20;
+margin-bottom:30px;
+}
+
+/* Table Styling */
+
+table{
+border-collapse:collapse;
+width:85%;
+max-width:900px;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+th{
+background:#2e7d32;
+color:white;
+padding:12px;
+font-size:16px;
+}
+
+td{
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+tr:nth-child(even){
+background:#f5f5f5;
+}
+
+tr:hover{
+background:#e8f5e9;
+}
+
+/* Responsive */
+
+@media(max-width:700px){
+
+table{
+width:95%;
+font-size:14px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📦 Previous Orders</h1>
+
+<table id="orderTable">
+
+<tr>
+<th>Date</th>
+<th>Buyer Name</th>
+<th>Phone Number</th>
+<th>Crop</th>
+<th>Price</th>
+</tr>
+
+</table>
+
+<script>
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let table = document.getElementById("orderTable");
+
+orders.forEach(order=>{
+
+order.items.forEach(item=>{
+
+let row = table.insertRow();
+
+row.insertCell(0).innerHTML = order.date;
+row.insertCell(1).innerHTML = order.buyerName;
+row.insertCell(2).innerHTML = order.phone;
+row.insertCell(3).innerHTML = item.name;
+row.insertCell(4).innerHTML = "₹" + item.price;
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

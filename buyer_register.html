@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Buyer Registration</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#43e97b,#38f9d7);
+}
+
+.container{
+background:rgba(255,255,255,0.9);
+padding:40px;
+border-radius:15px;
+width:380px;
+backdrop-filter:blur(10px);
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+margin-bottom:25px;
+color:#2e7d32;
+font-size:26px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:12px 0;
+border-radius:8px;
+border:1px solid #ddd;
+font-size:14px;
+background:#f9f9f9;
+}
+
+button{
+width:100%;
+padding:13px;
+margin-top:15px;
+background:linear-gradient(45deg,#2e7d32,#4caf50);
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Buyer Registration</h2>
+
+<form id="buyerForm">
+
+<input type="text" id="name" placeholder="Buyer Name" required>
+
+<input type="email" id="email" placeholder="Email Address" required>
+
+<input type="tel" id="phone" placeholder="Phone Number" required>
+
+<input type="password" id="password" placeholder="Password" required>
+
+<button type="submit">Submit</button>
+
+<p>Already have account? <a href="buyer_login.html">Login</a></p>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("buyerForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let name = document.getElementById("name").value.trim();
+let email = document.getElementById("email").value.trim();
+let phone = document.getElementById("phone").value.trim();
+let password = document.getElementById("password").value.trim();
+
+/* Correct Regex Patterns */
+let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+let phonePattern = /^[6-9]\d{9}$/;
+let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if(name.length < 3){
+alert("Name must be at least 3 characters");
+return;
+}
+
+if(!emailPattern.test(email)){
+alert("Please enter a valid email address (example@gmail.com)");
+return;
+}
+
+if(!phonePattern.test(phone)){
+alert("Enter a valid 10-digit mobile number starting with 6,7,8, or 9");
+return;
+}
+
+if(!passwordPattern.test(password)){
+alert("Password must contain:\n- Minimum 8 characters\n- 1 uppercase letter\n- 1 lowercase letter\n- 1 number\n- 1 special character");
+return;
+}
+
+alert("Registration Successful! Please login.");
+
+window.location.href="buyer_login.html";
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f0f8f0;
+text-align:center;
+}
+
+table{
+margin:auto;
+border-collapse:collapse;
+width:60%;
+background:white;
+}
+
+th,td{
+padding:10px;
+border:1px solid black;
+}
+
+th{
+background:#2e7d32;
+color:white;
+}
+
+.payment{
+margin-top:20px;
+}
+
+button{
+padding:10px 20px;
+background:green;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:20px;
+border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🛒 Your Cart</h1>
+
+<table id="cartTable">
+
+<tr>
+<th>Crop</th>
+<th>Price</th>
+</tr>
+
+</table>
+
+<div class="payment">
+
+<h3>Select Payment Method</h3>
+
+<label>
+<input type="radio" name="payment" value="Online" required> Online Payment
+</label>
+
+<br><br>
+
+<label>
+<input type="radio" name="payment" value="COD"> Cash on Delivery
+</label>
+
+</div>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let table = document.getElementById("cartTable");
+
+cart.forEach(item => {
+
+let row = table.insertRow();
+
+row.insertCell(0).innerHTML = item.name;
+row.insertCell(1).innerHTML = "₹" + item.price;
+
+});
+
+function placeOrder(){
+
+let buyerName = localStorage.getItem("buyerName");
+let phone = localStorage.getItem("buyerPhone");
+
+let paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+if(!paymentMethod){
+alert("Please select payment method");
+return;
+}
+
+let payment = paymentMethod.value;
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let order = {
+date: new Date().toLocaleString(),
+buyerName: buyerName,
+phone: phone,
+payment: payment,
+items: cart
+};
+
+orders.push(order);
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+localStorage.removeItem("cart");
+
+alert("Order placed successfully!");
+
+window.location.href="orders.html";
+
+}
+
+</script>
+
+</body>
+</html>
